@@ -24,9 +24,14 @@ Rules:
 - Rate limit: 100 requests/hour per client IP (`CF-Connecting-IP`), Durable Object fixed window
 - Responses: `200 {reply}`, `400 bad_request`, `403 forbidden_origin`, `429 rate_limited + retryAfterSec`, `502 upstream`
 
+## Deployed URLs
+
+- Reachable (Pages): `https://lynx-demo-assistant-api.pages.dev/chat`
+- Worker (workers.dev): `https://lynx-demo-assistant.lynx-akhdan.workers.dev/chat` (may be unreachable from some Indonesian ISPs / certain VPS TLS paths; Pages URL is the recommended public endpoint)
+
 ## Model
 
-- Gemini model: `gemini-3-flash-preview` (selected from `models.list` as a current Flash model that supports `generateContent`; verified with a live generateContent call).
+- Gemini model: `gemini-3-flash-preview` (selected from `models.list` as a current Flash model supporting `generateContent`; verified live). `maxOutputTokens` set to 1024 to accommodate Gemini 3 thinking-token overhead.
 
 ## Setup
 
@@ -40,12 +45,7 @@ Set the Gemini API key as a Worker secret (never commit it):
 
 ```bash
 npx wrangler secret put GEMINI_API_KEY
-```
-
-## Development
-
-```bash
-npm run dev
+npx wrangler pages secret put GEMINI_API_KEY --project-name lynx-demo-assistant-api
 ```
 
 ## Test
@@ -58,8 +58,9 @@ npm run typecheck
 ## Deploy
 
 ```bash
-npx wrangler login
-npm run deploy
+npx wrangler deploy
+# Pages (reachable hostname): build bundle, inline knowledge, then:
+npx wrangler pages deploy dist-pages --project-name lynx-demo-assistant-api --branch main --force --commit-dirty=true
 ```
 
 ## Notes
