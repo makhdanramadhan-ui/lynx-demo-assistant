@@ -34,7 +34,7 @@ Only facts in this file may be stated. Anything not covered → say you don't kn
 
 ## Dashboard pages (for tour tips)
 - Ringkasan / Overview: VPS RAM, CPU, disk, uptime, 6-hour trends, and a card per agent (status, RAM, CPU, uptime, current work, model in use, on/off/restart).
-- Agents: list of agents; each agent page has its activity, history, errors, lessons and (for trading) positions and triggers.
+- Agents: list of agents; each agent page has its activity, history, errors, lessons and (for trading) positions and triggers. The "Atur Model" button on an AI agent's page sets its primary model, reasoning effort and up to 3 fallback models from the 9Router catalog; agents pick up the change without a restart, and "Reset Default" restores the built-in chain. The bug-fixing worker only lists models its coding engine can run. Internship has no AI model.
 - Jadwal / Schedule: today's slots and scans per agent with the reason for each outcome (entry, trigger, skip, stuck).
 - Bug & Worker: bugs the tracker detected and the worker's fix jobs.
 - Log: recent service logs.
